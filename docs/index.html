@@ -7,5 +7,35 @@
   </head>
   <body>
     <h1>Hello World!</h1>
+
+    <button id="screenshot-button">Photo!</button>
+    <video id="video" autoplay></video>
+    <img id="screenshot-img" src="">
+    <canvas style="display:none;"></canvas>
+
+    <script>
+    const screenshotButton = document.querySelector("#screenshot-button");
+    const img = document.querySelector("#screenshot-img");
+    const video = document.querySelector("#video");
+
+    const canvas = document.createElement("canvas");
+
+    screenshotButton.onclick = video.onclick = function () {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext("2d").drawImage(video, 0, 0);
+      // Other browsers will fall back to image/png
+      img.src = canvas.toDataURL("image/webp");
+    };
+
+    const constraints = {
+      video: true,
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      video.srcObject = stream;
+    });
+
+    </script>
   </body>
 </html>

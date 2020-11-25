@@ -1,5 +1,7 @@
 # OViP - Open Vision App
 
+The app is hosted on Github pages here: https://falktan.github.io/ovip/
+
 This project aims to build a mobile app (as PWA) that provides features related to OCR and image recognition. A central design guideline is to build this as an application without backend, to avoid the need to send (possibly private) fotos to a backend server.
 
 A detailed discussion on why this might be a good idea and what the initial scope of this project is follows.
