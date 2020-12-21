@@ -37,7 +37,7 @@ window.onload = function() {
     };
 
     const constraints = {
-      video: true,
+      video: { facingMode: "environment" }  // prefer back camera
     };
 
     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
