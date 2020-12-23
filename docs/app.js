@@ -1,14 +1,10 @@
-window.onload = function() {
-    const screenshotButton = document.querySelector("#screenshot-button");
-    const img = document.querySelector("#screenshot-img");
+window.onload = async function() {
     const video = document.querySelector("#video");
-    const textarea = document.querySelector("#recognized-text");
     const canvas = document.createElement("canvas");
+    const backButton = document.querySelector("#back-button")
 
     initOcr = async () => {
-      const worker = Tesseract.createWorker({
-        logger: m => console.log(m)
-      });
+      const worker = Tesseract.createWorker({});
       await worker.load();
       await worker.loadLanguage('eng');
       await worker.initialize('eng');
@@ -18,31 +14,48 @@ window.onload = function() {
 
     const ocrPromise = initOcr();
 
-    doOcr = () => {
-      (async () => {
-        const ocr = await ocrPromise;
-        const { data: { text } } = await ocr.recognize(canvas);
-        textarea.innerHTML = text;
-        console.log(text);
-      })();  
+    function createTextOverlays(ocrResult) {
+      for(let line of ocrResult.lines) {
+        let $div = $('<div class="recognized-text"></div>')
+        $div.css({
+          "background-color": "white", 
+          "opacity": "0.2", 
+          "position": "absolute", 
+          "left": line.baseline.x0,
+          "top": line.baseline.y0,
+          "width": line.bbox.x1,
+          "font-size": "larger"
+        });
+        $div.text(line.text);
+        $("body").append($div);        
+      }
     }
 
-    screenshotButton.onclick = video.onclick = function () {
+    doOcr = async () => {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       canvas.getContext("2d").drawImage(video, 0, 0);
-      // Other browsers will fall back to image/png
-      img.src = canvas.toDataURL("image/webp");
-      doOcr();
-    };
+
+      const ocr = await ocrPromise;
+      return ocr.recognize(canvas);
+    }
+
+    $(".mid-area").click(async () => {
+      video.pause();
+      const {data: ocrResult} = await doOcr();
+
+      console.log(ocrResult);
+      createTextOverlays(ocrResult)
+    });
+
+    backButton.onclick = () => {
+      video.play();
+      $(".recognized-text").remove();
+    }
 
     const constraints = {
       video: { facingMode: "environment" }  // prefer back camera
     };
 
-    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-      video.srcObject = stream;
-    });
-
-    // await worker.terminate();
+    video.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
 };

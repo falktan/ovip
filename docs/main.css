@@ -1,0 +1,17 @@
+.top-area {
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mid-area {
+    height: 70%;
+}
+
+.bottom-area {
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
