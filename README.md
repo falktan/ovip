@@ -1,4 +1,5 @@
 # OViP - Open Vision App
+![OViP Icon](docs\images\icon_192.png)
 
 The app is hosted on Github pages here: https://falktan.github.io/ovip/
 
@@ -6,6 +7,10 @@ This project aims to build a mobile app (as PWA) that provides features related 
 
 A detailed discussion on why this might be a good idea and what the initial scope of this project is follows.
 This project was stated as a "capstone project" for a machine learning course on Udacity. What follows is pretty much the content of the "capstone proposal", which details the goal and outlines the motivation and plan to achieve it.
+
+## Icon
+The icon was purchased here ("royalty-free licence"; The author is Guilherme Schmitt on thenounproject.com):
+https://thenounproject.com/term/anime/2972504/
 
 ## Introduction
 
