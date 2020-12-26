@@ -4,12 +4,12 @@
     "description": "Use text from your camera",
     "icons": [
       {
-        "src": "/images/icon_192.png",
+        "src": "/ovip/images/icon_192.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/images/icon_512.png",
+        "src": "/ovip/images/icon_512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
