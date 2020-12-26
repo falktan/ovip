@@ -1,21 +1,21 @@
 {
-    "short_name": "OViP",
-    "name": "OViP - Open Vision App",
-    "description": "Use text from your camera",
-    "icons": [
-      {
-        "src": "/ovip/images/icon_192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "/ovip/images/icon_512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ],
-    "start_url": "/ovip/",
-    "display": "standalone",
-    "scope": "/",
-    "background_color": "#FFFFFF"
+  "short_name": "OViP",
+  "name": "OViP - Open Vision App",
+  "description": "Use text from your camera",
+  "icons": [
+    {
+      "src": "./images/icon_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./images/icon_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./",
+  "display": "standalone",
+  "scope": "/",
+  "background_color": "#FFFFFF"
 }
