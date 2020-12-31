@@ -6,8 +6,10 @@
     <title>OViP</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="stylesheet" href="main.css">
-    <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
-    <script src='https://unpkg.com/jquery@3.3.1/dist/jquery.min.js'></script>
+    <!-- crossorigin="anonymous" is needed so this resource is properly cacheable, for details see
+         https://whatwebcando.today/articles/opaque-responses-service-worker/ -->
+    <script crossorigin="anonymous" src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+    <script crossorigin="anonymous" src='https://unpkg.com/jquery@3.3.1/dist/jquery.min.js'></script>
     <script src='app.js'></script>
   </head>
   <body>
