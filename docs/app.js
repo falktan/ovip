@@ -9,7 +9,7 @@ window.onload = async function() {
     console.log('Registering service worker.');
 
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
+      navigator.serviceWorker.register('./service-worker.js')
       .then(function(registration) {
         console.log('Registration successful, scope is:', registration.scope);
       })
@@ -55,7 +55,7 @@ window.onload = async function() {
       const $div = $('<div class="recognized-text"></div>')
       $div.css({
         "background-color": "white", 
-        "opacity": "0.5", 
+        "opacity": "0.9",
         "position": "absolute", 
         "left": `${left}px`,
         "top": `${top}px`,
