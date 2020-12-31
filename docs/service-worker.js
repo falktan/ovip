@@ -7,7 +7,7 @@ function getCache() {
 }
 
 async function fetchAndCache(request) {
-  const response = await fetch(request, {mode: 'cors'});
+  const response = await fetch(request, {mode: 'cors', credentials: 'same-origin'});
   cache = await getCache();
   cache.put(request, response.clone());
   return response;
