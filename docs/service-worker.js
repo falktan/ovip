@@ -15,10 +15,8 @@ async function fetchAndCache(request) {
 
 async function getFromNetworkOrCache(request) {
   try {
-    console.log('Fetching from network');
     return await fetchAndCache(request);
   } catch (e) {
-    console.log('Fallback to cache');
     cache = await getCache();
     return caches.match(request);
   }
