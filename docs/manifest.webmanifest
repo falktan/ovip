@@ -1,7 +1,7 @@
 {
   "short_name": "OViP",
   "name": "OViP - Open Vision App",
-  "description": "Use text from your camera",
+  "description": "Recognize and use text from camera images",
   "icons": [
     {
       "src": "./images/icon_192.png",
