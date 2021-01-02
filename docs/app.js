@@ -3,7 +3,8 @@ window.onload = async function() {
   const video = document.querySelector("#video");
   const videoContainer = document.querySelector(".video-container");
   const canvas = document.createElement("canvas");
-  const backButton = document.querySelector("#back-button")
+  const usageHint = document.querySelector("#usage-hint");
+  const backButton = document.querySelector("#back-button");
 
   function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
@@ -17,8 +18,8 @@ window.onload = async function() {
   }
 
   registerServiceWorker();
-  
-  initOcr = async () => {
+
+  async function initOcr() {
     const worker = Tesseract.createWorker({});
     await worker.load();
     await worker.loadLanguage('eng');
@@ -49,21 +50,23 @@ window.onload = async function() {
 
       const $div = $('<div class="recognized-text"></div>')
       $div.css({
-        "background-color": "white", 
+        "background-color": "white",
         "opacity": "0.9",
-        "position": "absolute", 
+        "position": "absolute",
         "left": `${left}px`,
         "top": `${top}px`,
         "width": `${width}px`,
         "height": `${height}px`,
         "font-size": "larger"
       });
-      $div.text(match.text);
-      $(".video-container").append($div);  
+      // add a space so that words do not stick together if
+      // text from severals divs is selected
+      $div.text(match.text + ' ');
+      $(".video-container").append($div);
     }
   }
 
-  doOcr = async () => {
+  async function doOcr() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext("2d").drawImage(video, 0, 0);
@@ -74,20 +77,32 @@ window.onload = async function() {
 
   $(".mid-area").click(async () => {
     video.pause();
+    $(usageHint).text('Processing image...');
     const {data: ocrResult} = await doOcr();
 
     console.log(ocrResult);
     createTextOverlays(ocrResult)
+    // TODO: put more fitting text, if nothing was found.
+    $(usageHint).text('You can now mark text. Press the back button to start from the beginning.');
+    $(backButton).show();
   });
 
-  backButton.onclick = () => {
+  function reset() {
     video.play();
     $(".recognized-text").remove();
+    $(usageHint).text('Aim at text you want to use and touch the screen.');
+    $(backButton).hide();
   }
+
+  $(backButton).click(() => {
+    reset();
+  });
 
   const constraints = {
     video: { facingMode: "environment" }  // prefer back camera
   };
 
   video.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
+
+  reset();
 };

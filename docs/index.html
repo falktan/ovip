@@ -10,7 +10,7 @@
          https://whatwebcando.today/articles/opaque-responses-service-worker/ -->
     <script crossorigin="anonymous" src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
     <script crossorigin="anonymous" src='https://unpkg.com/jquery@3.3.1/dist/jquery.min.js'></script>
-    <script src='app.js'></script>
+    <script type="module" src='app.js'></script>
   </head>
   <body>
     <div class="app-container">
@@ -18,7 +18,8 @@
       </div>
       <div class="mid-area"></div>
       <div class="bottom-area">
-        <button id="back-button"> back </button>
+        <div id="usage-hint"></div>
+        <div id="back-button" style='display: none;'>Back</div>
       </div>
       <div class="video-container">
         <video id="video" autoplay></video>
