@@ -57,7 +57,8 @@ window.onload = async function() {
         "top": `${top}px`,
         "width": `${width}px`,
         "height": `${height}px`,
-        "font-size": "larger"
+        "font-size": "larger",
+        "white-space": "pre"  // keep trailing whitespace
       });
       // add a space so that words do not stick together if
       // text from severals divs is selected
