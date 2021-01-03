@@ -84,7 +84,7 @@ window.onload = async function() {
     console.log(ocrResult);
     createTextOverlays(ocrResult)
     // TODO: put more fitting text, if nothing was found.
-    $(usageHint).text('You can now mark text. Press the back button to start from the beginning.');
+    $(usageHint).text('You can now mark text');
     $(backButton).show();
   });
 
