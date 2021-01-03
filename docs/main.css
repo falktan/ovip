@@ -7,22 +7,24 @@ body {
 .app-container {
     width: 100%;
     height: 100%;
-}
+    display: flex;
+    flex-flow: column;}
 
 .top-area {
-    height: 10%;
+    height: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .mid-area {
-    height: 70%;
+    flex-grow : 1;
+    min-height: 100px;
 }
 
 .bottom-area {
-    height: 20%;
-    margin: auto;
+    height: fit-content;
+    margin-bottom: 1em;
 }
 
 #usage-hint {
@@ -31,7 +33,10 @@ body {
     font-size: large;
     padding: 0.5em;
     border-radius: 0.5em;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
     width: fit-content;
     text-align: center;
     max-width: 90%;
@@ -51,8 +56,10 @@ body {
 }
 
 .video-container {
+    position: absolute;
     width: 100%;
     height: 100%;
+    z-index: -10;
 }
 
 #video {
