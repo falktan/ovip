@@ -5,6 +5,7 @@ window.onload = async function() {
   const canvas = document.createElement("canvas");
   const usageHint = document.querySelector("#usage-hint");
   const backButton = document.querySelector("#back-button");
+  let state="video"  // video | processing | finished
 
   function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
@@ -77,8 +78,13 @@ window.onload = async function() {
   }
 
   $("#video").click(async () => {
+    if(state != "video") {
+      return;
+    }
+
     video.pause();
     $(usageHint).text('Processing image...');
+    state="processing"  // video | processing | finished
     const {data: ocrResult} = await doOcr();
 
     console.log(ocrResult);
@@ -86,6 +92,7 @@ window.onload = async function() {
     // TODO: put more fitting text, if nothing was found.
     $(usageHint).text('You can now mark text');
     $(backButton).show();
+    state="finished"
   });
 
   function reset() {
@@ -93,6 +100,7 @@ window.onload = async function() {
     $(".recognized-text").remove();
     $(usageHint).text('Aim at text you want to use and touch the screen.');
     $(backButton).hide();
+    state="video"
   }
 
   $(backButton).click(() => {
