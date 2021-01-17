@@ -76,7 +76,7 @@ window.onload = async function() {
     return ocr.recognize(canvas);
   }
 
-  $(".mid-area").click(async () => {
+  $("#video").click(async () => {
     video.pause();
     $(usageHint).text('Processing image...');
     const {data: ocrResult} = await doOcr();
