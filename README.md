@@ -29,3 +29,10 @@ https://thenounproject.com/term/anime/2972504/
 
 ## Motivation
 This project was stated as a "capstone project" for a machine learning course on Udacity. A detailed motivation for this work has been provided in a [proposal document](proposal.md).
+
+## Development
+
+### Run local server
+
+If you simply try to open the app from the file system, you will get an error about cors policies not supporting the `file://` protocoll. Hence, to test the app locally you need to run a local server, which simply serves the files in the `docs` folder.
+There are many easy to use servers available. For instance using VS-Code, the following plugin provides a convinenent local server (also featureing dynamic reload upon changes to local files): Liveserver, ritwickdey.liveserver
