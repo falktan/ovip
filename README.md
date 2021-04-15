@@ -2,6 +2,8 @@
 ![OViP Icon](docs/images/icon_192.png)
 
 The app is hosted on Github pages here: https://falktan.github.io/ovip/
+To use the app, open this link from your mobile phone.
+This app can also be installed making it offline available. Simply open the link and from the menu select "install app".
 
 This is a mobile app (as PWA) that provides features related to OCR and image recognition. A central design guideline is to provide this as an application without backend, to avoid the need to send (possibly private) fotos to a backend server and with the added benefit, that it also works offline.
 
