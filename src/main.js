@@ -1,3 +1,8 @@
+import './main.css';
+
+import $ from 'jquery';
+import tesseract from 'tesseract.js';
+
 window.onload = async function() {
   const MIN_CONFIDENCE = 50;  // between 0 and 100.
   const video = document.querySelector("#video");
@@ -21,7 +26,7 @@ window.onload = async function() {
   registerServiceWorker();
 
   async function initOcr() {
-    const worker = Tesseract.createWorker({});
+    const worker = tesseract.createWorker({});
     await worker.load();
     await worker.loadLanguage('eng');
     await worker.initialize('eng');

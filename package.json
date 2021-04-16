@@ -1,0 +1,42 @@
+{
+  "name": "ovip",
+  "version": "0.1.0",
+  "description": "Open Vision App",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "http-server dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/falktan/ovip.git"
+  },
+  "keywords": [
+    "ocr",
+    "vision",
+    "pwa",
+    "app",
+    "oss"
+  ],
+  "author": "Falk Tandetzky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/falktan/ovip/issues"
+  },
+  "homepage": "https://github.com/falktan/ovip#readme",
+  "devDependencies": {
+    "css-loader": "^5.2.1",
+    "html-webpack-plugin": "^5.3.1",
+    "http-server": "^0.12.3",
+    "raw-loader": "^4.0.2",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-pwa-manifest": "^4.3.0",
+    "workbox-webpack-plugin": "^6.1.5"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "tesseract.js": "^2.1.4"
+  }
+}

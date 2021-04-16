@@ -34,7 +34,15 @@ This project was stated as a "capstone project" for a machine learning course on
 
 ## Development
 
-### Run local server
+This project uses webpack (for an overview of how to use, see https://webpack.js.org/guides/getting-started/)
 
-If you simply try to open the app from the file system, you will get an error about cors policies not supporting the `file://` protocoll. Hence, to test the app locally you need to run a local server, which simply serves the files in the `docs` folder.
-There are many easy to use servers available. For instance using VS-Code, the following plugin provides a convinenent local server (also featureing dynamic reload upon changes to local files): Liveserver, ritwickdey.liveserver
+Install Node (>=14.x.x).
+
+To install all dependencies run
+```npm install```
+Then to build the packaged app via webpack run
+```npm run build```
+This creates a dist folder with all files needed for the app.
+To try the app locally run
+```npm start```
+This starts a local server on ```http://127.0.0.1:8080```.
