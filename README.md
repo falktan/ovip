@@ -39,10 +39,16 @@ This project uses webpack (for an overview of how to use, see https://webpack.js
 Install Node (>=14.x.x).
 
 To install all dependencies run
+
 ```npm install```
+
 Then to build the packaged app via webpack run
+
 ```npm run build```
+
 This creates a dist folder with all files needed for the app.
 To try the app locally run
+
 ```npm start```
+
 This starts a local server on ```http://127.0.0.1:8080```.
