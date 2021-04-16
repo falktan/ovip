@@ -1,0 +1,20 @@
+{
+  "icons": [
+    {
+      "src": "./icon_512x512.c00c689961b81545e9956081952f6cff.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon_192x192.cb4b37e3609b540d696f2660b6d338a7.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "OViP - Open Vision App",
+  "short_name": "OViP",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "Recognize and use text from camera images",
+  "background_color": "#ffffff"
+}
