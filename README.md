@@ -1,6 +1,8 @@
 # OViP - Open Vision App
 ![OViP Icon](src/resources/icon_192.png)
 
+![Release Status](https://github.com/falktan/ovip/actions/workflows/release.yml/badge.svg)
+
 The app is hosted on Github pages here: https://falktan.github.io/ovip/
 To use the app, open this link from your mobile phone.
 This app can also be installed making it offline available. Simply open the link and from the menu select "install app".
