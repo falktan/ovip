@@ -13,12 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install Node.js
-      uses: actions/setup-node@v2
+    - uses: actions/setup-node@v2
       with:
         node-version: 14.x
+    - run: git status
+    - run: git checkout release
+    - run: git pull
+    - run: 'git merge master -m "Action Release: Merging master to prepare release."'
     - run: npm ci
     - run: npm run build
+    - run: mv dist docs
+    - run: git add docs
+    - run: 'git commit -m "Action Release: Updating docs with new build files to finish release."'
     - run: git status
-    - run: ls -la
-    - run: pwd
