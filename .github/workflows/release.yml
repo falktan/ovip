@@ -16,12 +16,9 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: 14.x
-    - run: git status
-    - run: git branch -a
     - run: git fetch
-    - run: git branch -a
-    - run: git checkout --track -b release origin/release
-    - run: 'git merge master -m "Action Release: Merging master to prepare release."'
+    - run: git checkout --track origin/release
+    - run: 'git merge main -m "Action Release: Merging master to prepare release."'
     - run: npm ci
     - run: npm run build
     - run: mv dist docs
