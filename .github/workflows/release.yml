@@ -1,0 +1,33 @@
+# This workflow will do a clean install of node dependencies, build the source code
+
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+    - run: git config --global user.email "no-reply@example.com"
+    - run: git config --global user.name "Release Action"
+    - run: git fetch
+    - run: git checkout --track origin/release
+    - run: 'git merge main -m "Action Release: Merging master to prepare release."'
+    - run: npm ci
+    - run: npm run build
+    - run: mv dist docs
+    - run: git add docs
+    - run: 'git commit --allow-empty -m "Action Release: Updating docs with new build files to finish release."'
+    - run: git status
+    - run: git push
+    - run: git status
