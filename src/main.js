@@ -2,6 +2,7 @@ import './main.css';
 
 import $ from 'jquery';
 import tesseract from 'tesseract.js';
+import textFit from './lib/textFit';
 
 window.onload = async function() {
   const MIN_CONFIDENCE = 25;  // between 0 and 100.
@@ -63,9 +64,11 @@ window.onload = async function() {
       });
       // add a space so that words do not stick together if
       // text from severals divs is selected
-      $div.text(match.text + ' ');
+      $div.text($.trim(match.text) + ' ');
       $(videoContainer).append($div);
     }
+
+    textFit($('.recognized-text'));
   }
 
   async function doOcr() {
@@ -102,10 +105,7 @@ window.onload = async function() {
     state="processing"  // video | processing | finished
     const {data: ocrResult} = await doOcr();
 
-    const matches = ocrResult.lines
-      .map(line => line.words)
-      .flat()
-      .filter(match => match.confidence > MIN_CONFIDENCE)
+    const matches = ocrResult.lines.filter(match => match.confidence > MIN_CONFIDENCE)
 
     createTextOverlays(matches);
 
