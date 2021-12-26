@@ -30,8 +30,8 @@ window.onload = async function() {
   async function initOcr() {
     const worker = tesseract.createWorker({});
     await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
+    await worker.loadLanguage('eng+deu');
+    await worker.initialize('eng+deu');
 
     return worker;
   }
