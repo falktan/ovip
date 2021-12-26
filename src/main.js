@@ -132,7 +132,11 @@ window.onload = async function() {
   });
 
   const constraints = {
-    video: { facingMode: "environment" }  // prefer back camera
+    video: {
+      facingMode: "environment",  // prefer back camera
+      width: 99999,   // prefer high resolutions
+      height: 99999  // prefer high resolutions
+    }
   };
 
   video.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
