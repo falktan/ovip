@@ -38,6 +38,7 @@ jobs:
     - run: 'git merge main -m "Action Release: Merging master to prepare release."'
     - run: npm ci
     - run: npm run build
+    - run: rm -r docs
     - run: mv dist docs
     - run: git add docs
     - run: 'git commit --allow-empty -m "Action Release: Updating docs with new build files to finish release."'
