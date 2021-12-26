@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>OViP</title>
-  <script defer src="main.js"></script><link rel="manifest" href="./manifest.3e50286c4875e09ec12fd077d168edea.json" crossorigin="anonymous" /></head>
+  <script defer src="main.js"></script><link rel="manifest" href="./manifest.8880ebe17c45bc6a75e832fdbe7d8b8e.json" crossorigin="anonymous" /></head>
   <body>
     <div class="app-container">
       <div class="top-area">
@@ -16,7 +16,11 @@
       </div>
       <!-- This is put in the background of all siblign elements by styling -->
       <div class="video-container">
+        <!-- This fills the entire "video-container"-element. We keep the aspect ratio. So in case the
+             container does not have the same aspect ratio as the video, the video exceeds either the
+             width or height of this container -->
         <video id="video" autoplay></video>
+        <div id="crosshair"></div>
       </div>
     </div>
   </body>
