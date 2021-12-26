@@ -4,9 +4,10 @@ import $ from 'jquery';
 import tesseract from 'tesseract.js';
 
 window.onload = async function() {
-  const MIN_CONFIDENCE = 50;  // between 0 and 100.
+  const MIN_CONFIDENCE = 25;  // between 0 and 100.
   const video = document.querySelector("#video");
   const videoContainer = document.querySelector(".video-container");
+  const crosshair = document.querySelector("#crosshair");
   const canvas = document.createElement("canvas");
   const usageHint = document.querySelector("#usage-hint");
   const backButton = document.querySelector("#back-button");
@@ -36,21 +37,15 @@ window.onload = async function() {
 
   const ocrPromise = initOcr();
 
-  function createTextOverlays(ocrResult) {
-    const matches = ocrResult.lines
-                    .map(line => line.words)
-                    .flat()
-                    .filter(match => match.confidence > MIN_CONFIDENCE);
-
+  function createTextOverlays(matches) {
     for(const match of matches) {
       const {x0, y0, x1, y1} = match.bbox;
+      const {top: crossTop, left: crossLeft, bottom: crossBottom, right: crossRight} = crosshair.getBoundingClientRect();
+      const {top: contTop, left: contLeft, bottom: contBottom, right: contRight} = videoContainer.getBoundingClientRect();
       const scale = video.clientWidth / video.videoWidth;
-      // the video may exceed the video-container either in x- or in y-direction
-      // the video is placed so that the video and the video-container have the same center
-      const overlap_x = (video.clientWidth - videoContainer.clientWidth) / 2;
-      const overlap_y = (video.clientHeight - videoContainer.clientHeight) / 2;
-      const left = x0 * scale - overlap_x;
-      const top = y0 * scale - overlap_y;
+
+      const left = crossLeft - contLeft + x0 * scale;
+      const top = crossTop - contTop + y0 * scale;
       const width = (x1-x0) * scale
       const height = (y1-y0) * scale
 
@@ -69,20 +64,35 @@ window.onload = async function() {
       // add a space so that words do not stick together if
       // text from severals divs is selected
       $div.text(match.text + ' ');
-      $(".video-container").append($div);
+      $(videoContainer).append($div);
     }
   }
 
   async function doOcr() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext("2d").drawImage(video, 0, 0);
+    const scale = video.clientWidth / video.videoWidth;
+    const {top: vTop, left: vLeft, bottom: vBottom, right: vRight} = video.getBoundingClientRect();
+    const {top: cTop, left: cLeft, bottom: cBottom, right: cRight} = crosshair.getBoundingClientRect();
+
+    const sourceTop = (cTop - vTop) / scale;
+    const sourceLeft = (cLeft - vLeft) / scale;
+    const sourceWidth = (cRight - cLeft) / scale;
+    const sourceHeight = (cBottom - cTop) / scale;
+    const destWidth = sourceWidth;
+    const destHeight = sourceHeight;
+    const destLeft = 0;
+    const destTop = 0;
+
+    canvas.width = destWidth;
+    canvas.height = destHeight;
+
+    canvas.getContext("2d").drawImage(video, sourceLeft, sourceTop, sourceWidth, sourceHeight,
+      destLeft, destTop, destWidth, destHeight);
 
     const ocr = await ocrPromise;
     return ocr.recognize(canvas);
   }
 
-  $("#video").on("click", async () => {
+  $(".video-container").on("click", async () => {
     if(state != "video") {
       return;
     }
@@ -92,10 +102,19 @@ window.onload = async function() {
     state="processing"  // video | processing | finished
     const {data: ocrResult} = await doOcr();
 
-    console.log(ocrResult);
-    createTextOverlays(ocrResult)
-    // TODO: put more fitting text, if nothing was found.
-    $(usageHint).text('You can now mark text');
+    const matches = ocrResult.lines
+      .map(line => line.words)
+      .flat()
+      .filter(match => match.confidence > MIN_CONFIDENCE)
+
+    createTextOverlays(matches);
+
+    if(matches.length > 0) {
+      $(usageHint).text('You can now mark text');
+    } else {
+      $(usageHint).text('No text recognized. Please click "Back" and try again.');
+    }
+
     $(backButton).show();
     state="finished"
   });

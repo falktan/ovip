@@ -16,7 +16,11 @@
       </div>
       <!-- This is put in the background of all siblign elements by styling -->
       <div class="video-container">
+        <!-- This fills the entire "video-container"-element. We keep the aspect ratio. So in case the
+             container does not have the same aspect ratio as the video, the video exceeds either the
+             width or height of this container -->
         <video id="video" autoplay></video>
+        <div id="crosshair"></div>
       </div>
     </div>
   </body>
