@@ -2,7 +2,7 @@ import './main.css';
 
 import $ from 'jquery';
 import tesseract from 'tesseract.js';
-import textFit from './lib/textFit';
+import textFit from 'textfit';
 
 window.onload = async function() {
   const MIN_CONFIDENCE = 25;  // between 0 and 100.

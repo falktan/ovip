@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "jquery": "^3.6.0",
-    "tesseract.js": "^2.1.5"
+    "tesseract.js": "^2.1.5",
+    "textfit": "github:strml/textFit"
   }
 }
