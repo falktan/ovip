@@ -82,7 +82,7 @@ window.onload = async function() {
     return ocr.recognize(canvas);
   }
 
-  $("#video").click(async () => {
+  $("#video").on("click", async () => {
     if(state != "video") {
       return;
     }
@@ -108,7 +108,7 @@ window.onload = async function() {
     state="video"
   }
 
-  $(backButton).click(() => {
+  $(backButton).on("click", () => {
     reset();
   });
 
