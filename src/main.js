@@ -43,7 +43,7 @@ window.onload = async function() {
       const {x0, y0, x1, y1} = match.bbox;
       const {top: crossTop, left: crossLeft, bottom: crossBottom, right: crossRight} = crosshair.getBoundingClientRect();
       const {top: contTop, left: contLeft, bottom: contBottom, right: contRight} = videoContainer.getBoundingClientRect();
-      const scale = video.clientWidth / video.videoWidth;
+      const {scale} = getScale();
 
       const left = crossLeft - contLeft + x0 * scale;
       const top = crossTop - contTop + y0 * scale;
@@ -72,14 +72,15 @@ window.onload = async function() {
   }
 
   async function doOcr() {
-    const scale = video.clientWidth / video.videoWidth;
-    const {top: vTop, left: vLeft, bottom: vBottom, right: vRight} = video.getBoundingClientRect();
-    const {top: cTop, left: cLeft, bottom: cBottom, right: cRight} = crosshair.getBoundingClientRect();
+    const {top: crossTop, left: crossLeft, bottom: crossBottom, right: crossRight} = crosshair.getBoundingClientRect();
+    const crossWidth = crossRight - crossLeft;
+    const crossHeight = crossBottom - crossTop;
+    const {scale, videoTop, videoLeft} = getScale();
 
-    const sourceTop = (cTop - vTop) / scale;
-    const sourceLeft = (cLeft - vLeft) / scale;
-    const sourceWidth = (cRight - cLeft) / scale;
-    const sourceHeight = (cBottom - cTop) / scale;
+    const sourceTop = (crossTop - videoTop) / scale;
+    const sourceLeft = (crossLeft - videoLeft) / scale;
+    const sourceWidth = crossWidth / scale;
+    const sourceHeight = crossHeight / scale;
     const destWidth = sourceWidth;
     const destHeight = sourceHeight;
     const destLeft = 0;
@@ -93,6 +94,39 @@ window.onload = async function() {
 
     const ocr = await ocrPromise;
     return ocr.recognize(canvas);
+  }
+
+  /**
+   * @returns
+   * - scale: the factor by which the video is scaled to fit in the display
+   * - videoTop: the top of the video in viewport coordinates, if it was not cropped
+   * - videoLeft: the left of the video in viewport coordinates, if it was not cropped
+   */
+  function getScale() {
+    const {top: contTop, left: contLeft, bottom: contBottom, right: contRight} = videoContainer.getBoundingClientRect();
+    const contWidth = contRight - contLeft;
+    const contHeight = contBottom - contTop;
+    const contMidX = (contLeft + contRight) / 2;
+    const contMidY = (contTop + contBottom) / 2;
+    // video and video-container have the same center
+    // the video either exceeds the container in horizontal OR vertical direction
+    let scale, videoTop, videoLeft;
+    const videoAspectRatio = video.videoWidth / video.videoHeight;
+    const containerAspectRatio = contWidth / contHeight
+
+    const exceedsHorizontally = videoAspectRatio > containerAspectRatio;
+
+    if(exceedsHorizontally) {
+      scale = contHeight / video.videoHeight;
+      videoTop = contTop;
+      videoLeft = contMidX - scale * video.videoWidth / 2;
+    } else {
+      scale = contWidth / video.videoWidth;
+      videoTop = contMidY - scale * video.videoHeight / 2;
+      videoLeft = contLeft;
+    }
+
+    return {scale, videoTop, videoLeft};
   }
 
   $(".video-container").on("click", async () => {
@@ -134,8 +168,10 @@ window.onload = async function() {
   const constraints = {
     video: {
       facingMode: "environment",  // prefer back camera
-      width: 99999,   // prefer high resolutions
-      height: 99999  // prefer high resolutions
+      // Some number larger than any expected resolution. Needed to get high resolutions.
+      // Without this a default bad resolution would be used. See: https://stackoverflow.com/a/48546227/8195190
+      width: 99999,
+      height: 99999
     }
   };
 
