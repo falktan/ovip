@@ -85,3 +85,7 @@ body {
     border-color: cyan;
     border-radius: 2em;
 }
+
+.no-select {
+    user-select: none;
+}
