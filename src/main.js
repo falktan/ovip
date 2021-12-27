@@ -156,7 +156,7 @@ window.onload = async function() {
   function reset() {
     video.play();
     $(".recognized-text").remove();
-    $(usageHint).text('Aim at text you want to use and touch the screen.');
+    $(usageHint).text('Aim at text you want to use and touch the screen. For long lines landscape orientation works better.');
     $(backButton).hide();
     state="video"
   }
